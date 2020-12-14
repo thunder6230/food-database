@@ -6,6 +6,7 @@ let randomRecipesArr = []
 
 let recipesArr = []
 $("document").ready(()=> {
+    console.log("fetching has started ...")
     $.getJSON("/js/recipes.json",
         (data) => {
             data.map(recipe => {

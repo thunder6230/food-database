@@ -1,4 +1,5 @@
 const homeToDom = () => {
+    
     console.log("generated Home ...")
     $(".site_main").html(`
         <div class="greeting">
@@ -11,7 +12,4 @@ const homeToDom = () => {
         </div>
     `)
 }
-
-$("document").ready(()=> {
-    homeToDom()
-})
+homeToDom()
