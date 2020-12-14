@@ -6,7 +6,6 @@ let recipesArr = []
 
 // Get the first 100 entries of the database - make faster the pageloading
 $("document").ready(()=> {
-    console.log("fetching has started ...")
     $.getJSON("/modules/onload_recipes.json",
         (data) => {
             data.map((recipe,index) => {
@@ -17,10 +16,6 @@ $("document").ready(()=> {
         }
     )
 })
-
-
-
-
 
 
 // const fetchRecipes = async  (query_type, number) => {
@@ -54,65 +49,3 @@ const createRandomArr = (number) => {
         console.log(randomRecipesArr)
 }
 
-
-const createRecipeDiv = (recipeArr) => {
-    let recipes_div = document.querySelector(".results")
-    recipes_div.innerHTML = ""
-    recipeArr.map((recipe,index) => {
-        recipes_div.innerHTML += `
-        <div class="recipe_card" id="${index}"onclick="showRecipe(${index})">
-            <img src="${recipe.image}" alt="${recipe.title}">
-            <h2>${recipe.title}</h2>
-            <p>Ready in ${recipe.readyInMinutes} minutes</p>
-            <ul>
-        `
-        recipe.diets.map(diet => {
-            document.querySelectorAll(".recipe_card")[index].innerHTML += `<li>${diet}</li>`
-        })
-        document.querySelector(".recipe_card").innerHTML += `
-        </ul>
-        </div>`
-    })
-}
-
-const showRecipe = (index) => {
-    console.log(recipesArr[index])
-    let recipe = recipesArr[index]
-    site_main.innerHTML = `<div class="recipe_detail"></div>`
-    recipe_div = document.querySelector(".recipe_detail")
-    recipe_div.innerHTML = `
-        <h2>${recipe.title}</h2>
-        <ul>`
-        recipe.diets.map(diet => {
-            recipe_div.innerHTML += `<li>${diet}</li>`
-        })
-        recipe_div.innerHTML += `
-        </ul>
-        <p>${recipe.readyInMinutes}</p>
-        <img src="${recipe.image}" alt="${recipe.title}">
-        <div class="total_time">
-            <span>Total time</span>
-            <p>minutes</p>
-        </div>
-        <div class="ingredients">`
-            recipe.extendedIngredients.map(ingredient => {
-                recipe_div.innerHTML += `
-                    <p>${ingredient.name}</p>
-                    <p>${ingredient.measures.metric.amount} ${ingredient.measures.metric.unitShort}</p>
-                `
-            })
-        recipe_div.innerHTML += `</div>
-        <div class="wines">
-            <h3>Wine recommendation:</h3>
-            <ul>`
-            recipe.winePairing.pairedWines.map(wine => {
-                recipe_div.innerHTML += `<li>${wine}</li>`
-            })
-        recipe_div.innerHTML += `       
-            </ul>
-        </div>
-
-        <i class="fas fa-backspace" onclick="recipesToDom()"></i>
-
-    `
-}

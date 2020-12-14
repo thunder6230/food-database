@@ -1,7 +1,7 @@
 const diets = [
     {
         id: 0,
-        name: "Omnivore (Average Diet)",
+        name: "Omnivore",
         image: "/images/diets/omnivore.jpg",
         body: `A mixture of meat, fish, fruit, vegetables, grains, etc. It can be healthy if following a balanced whole food or so-called "clean eating" diet1 or unhealthy if eating the Standard American Diet2.`,
         allowed: `Everything`,
@@ -17,7 +17,7 @@ const diets = [
     },
     {
         id: 2,
-        name: "Mediterranean Diet",
+        name: "Mediterranean",
         image: "/images/diets/mediterranean.jpg",
         body: `Often a top contender in "which diet is best" rankings, the Mediterranean Diet fits under the "omnivore" category. The Mediterranean Diet is a bit hard to define, since numerous countries border the Mediterranean Sea and they all have their own unique cuisines. Nonetheless, a Mediterranean-style diet is typically understood to mean one where:
         <ul>
@@ -40,7 +40,7 @@ const diets = [
     },
     {
         id: 4,
-        name: "Paleo Diet",
+        name: "Paleo",
         image: "/images/diets/paleo.jpg",
         body: `This diet is based on the belief that the best diet will align with how our ancient ancestors ate, before agricultural and industrial developments led to widespread changes in the typical human diet. Following a Paleo diet means following a clean eating diet, since ancient man definitely didn't have access to Oreos, Lunchables, or Lunchables with Oreos. The strictest form of the Paleo diet goes further, however, limiting additional foods that most would still consider clean. These foods are outlined in the list below.`,
         allowed: `Meat (especially grass fed), fish, eggs, vegetables, some oils (e.g. coconut and olive oil), and in smaller quantities, fruit, nuts, sweet potatoes`,
@@ -48,7 +48,7 @@ const diets = [
     },
     {
         id: 5,
-        name: "Ketogenic Diet",
+        name: "Ketogenic",
         image: "/images/diets/keto.jpg",
         body: `If the body does not have enough glucose, its preferred source of energy, it breaks down fat for energy instead. This process releases molecules known as ketones. "Ketosis" refers to this state of increased ketones in the blood. Low carb diets can cause ketosis, because carbohydrates are broken down into glucose during digestion. Thus, restricting carbohydrates reduces the amount of available glucose and creates the need for the body to get energy from other sources.4
 
@@ -60,7 +60,7 @@ const diets = [
     },
     {
         id: 6,
-        name: "Gluten Free Diet",
+        name: "Gluten Free",
         image: "/images/diets/glutenfree.jpg",
         body: `Following a gluten free diet means eliminating gluten, the proteins found in wheat and some other grains. There are no other requirements, so a gluten free diet is not necessarily a healthy diet, since you could easily load up on gluten free pasta, cookies, and crackers. This is why a gluten free diet mostly makes sense if you truly have a gluten allergy or insensitivity, or if you cut out gluten while centering your diet around unprocessed foods.`,
         allowed: `Everything that doesn't contain gluten`,
@@ -68,7 +68,7 @@ const diets = [
     },
     {
         id: 7,
-        name: "Grain Free Diet",
+        name: "Grain Free",
         image: "/images/diets/grainfree.jpg",
         body: `The difference between gluten free and grain free is simple: a gluten free diet avoids grains that contain gluten, while a grain free diet avoids all grains, even those that do not contain gluten. This means a grain free diet is a gluten free diet (because it does not include wheat or gluten-containing grains), but a gluten free diet is not necessarily a grain free diet (because it can include grains that do not contain gluten, such as rice and corn.)
 
@@ -78,7 +78,7 @@ const diets = [
     },
     {
         id: 8,
-        name: "GAPS Diet",
+        name: "GAPS",
         image: "/images/diets/gasp.jpg",
         body: `The GAPS diet is a program based upon the Specific Carbohydrate Diet (SCD). It claims to heal the gut and help treat numerous psychological conditions, including autism, ADHD, and depression. While there is plenty of anecdotal evidence suggesting the diet can be helpful, especially for those with digestive conditions, scientific evidence is lacking. However, research on the SCD does exist and appears promising.`,
         allowed: `The foods you may eat depend on which stage of GAPS you are in. Stage 1 is the most restrictive, allowing just homemade broths/stocks, boiled fish and meats, several types of cooked vegetables and onions, garlic, ginger, honey, salt, pepper, and small amounts of fermented vegetable juice and homemade yogurt.`,
@@ -86,8 +86,8 @@ const diets = [
     },
     {
         id: 9,
-        name: "Low FODMAP Diet",
-        image: "https://spoonacular.com/application/frontend/images/academy/lunch-wrap.jpg",
+        name: "Low FODMAP",
+        image: "/images/diets/fodmap.jpg",
         body: `FODMAP stands for Fermentable Oligo-, Di-, Monosaccharides And Polyols. For those of us who aren't biochemists, these are carbohydrates found in fructose, lactose, wheat, garlic, onion, legumes, sugar alcohols, and stone fruit.10 Some individuals are sensitive to FODMAPs in the diet and experience unpleasant digestive side effects after consumption. For this reason, low FODMAP diets can be helpful for sufferers of IBS and other digestive disorders.`,
         allowed: `Foods low in FODMAPs. This includes meat, eggs, fish, lactose free dairy, some nuts, gluten-free grains, certain fruits and vegetables (e.g. bananas, blueberries, oranges, grapes, bell peppers, cucumber, kale, potatoes, tomatoes)`,
         not_allowed: `Foods high in FODMAPS. This includes high lactose dairy (like milk), cashews, pistachios, legumes, gluten-containing grains, apples, dried fruit, stone fruit, cauliflower, celery, mushrooms, onions, garlic, sugar alcohols (e.g. sorbitol, maltitol, xylitol)`
@@ -127,45 +127,112 @@ const diets = [
     },
 ]
 let dietsArr = []
+let exampleRecipeArr = []
 const site_main = document.querySelector('.site_main')
 
 
 const createDietCards = () => {
     diets.map(diet => {
         dietsArr.push(`
-            <div class="diet_card" onclick="showDietDescription(${diet.id})">
+            <div class="diet_card" onclick="showDietDescription(${diet.id}, true)">
                 <img src="${diet.image}">
-                <h2>${diet.name}</h2>
+                <div class="diet_text">
+                    <h2>${diet.name}</h2>
+                </div>
             </div>
         `)
     })
 }
-const showDietDescription = (id) => {
+const showDietDescription = (id, generateNew) => {
     let diet = diets[id]
-    site_main.innerHTML = "<div class='diet_description'></div>"
+    if(generateNew){
+        createExampleRecipeArray(diet.name)
+    }
+    site_main.innerHTML = "<div class='diet_description' style='display: none;'></div>"
     const description = document.querySelector(".diet_description")
     description.innerHTML = `
-        <h2>${diet.name}</h2>
+
+        <div class="description_header">
+            <h2>${diet.name}</h2>
+            <i class="fas fa-window-close" onclick="dietsToDom()"></i>
+        </div>
         <img src="${diet.image}" alt="${diet.name}"
         <p>${diet.body}</p>
         <p><strong>Allowed: </strong>${diet.allowed}</p>
         <p><strong>Not Allowed: </strong>${diet.not_allowed}</p>
-        <i class="fas fa-backspace" onclick="dietsToDom()"></i>
-        
+        <div class='recipes_div'>
+            <h3>Some examples</h3>
+            <div class="results">
+            </div>
+    </div>
     `
+    createRecipeDiv(exampleRecipeArr, "results")
+    $(".diet_description").fadeIn(500)
 }
 const dietsToDom = () => {
+    window.scrollTo(0, 0);
     console.log("Diets have been listed...")
     site_main.innerHTML = ""
-    site_main.innerHTML = "<div class='diets'></div>"
+    site_main.innerHTML = "<div class='diets' style='display: none;'></div>"
     const diets_div = document.querySelector(".diets")
     dietsArr.map(diets => {
         diets_div.innerHTML += diets
     }) 
-
+    $(".diets").fadeIn(500)
 }
 
 
+const createExampleRecipeArray = (diet) => {
+    console.log(diet)
+    exampleRecipeArr = []
+    let randomNumbers = []
+    for (let i = 0; i < 3; i++) {
+        randomNumbers.push(Math.floor(Math.random() * 50))
+    }
+    if (diet == "Omnivore"){
+        randomNumbers.map(number => {
+            exampleRecipeArr.push(recipesArr[number])
+        })
+    } else {
+        if (diet == "Gluten Free"){
+            recipesArr.map(recipe => {
+                if(recipe.glutenFree == true){
+                    exampleRecipeArr.push(recipe)
+                }
+            })
+        } else if (diet == "Vegetarian"){
+            recipesArr.map(recipe => {
+                if(recipe.vegetarian == true){
+                    exampleRecipeArr.push(recipe)
+                }
+            })
+        } else if (diet == "Vegan"){
+            recipesArr.map(recipe => {
+                if(recipe.vegan == true){
+                    exampleRecipeArr.push(recipe)
+                }
+            })
+        } else if (diet == "Low FODMAP") {
+            recipesArr.map(recipe => {
+                if(recipe.lowFodmap == true){
+                    exampleRecipeArr.push(recipe)
+                }
+            })
+        } else if (diet == "GAPS") {
+            recipesArr.map(recipe => {
+                if(recipe.gaps == "yes"){
+                    exampleRecipeArr.push(recipe)
+                }
+            })
+        } else if (diet == "Low FODMAP") {
+            recipesArr.map(recipe => {
+                if(recipe.lowFodmap == true){
+                    exampleRecipeArr.push(recipe)
+                }
+            })
+        }
+    }
+}
 
 $("document").ready( createDietCards() )
 

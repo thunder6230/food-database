@@ -11,6 +11,16 @@ body {
     overflow : visible;
 }
 
+.fas.fa-window-close {
+    font-size: 1.5em;
+    color: red;
+    transition: all 0.1s ease-in;
+}
+.fas.fa-window-close:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
 .wrapper {
     background-color: rgba(0,0,0,0.6);
     position: absolute;

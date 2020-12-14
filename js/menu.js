@@ -60,7 +60,6 @@ $(".nav_menu li").click(()=> {
     
 })
 $(".nav_menu a").click((e) => {
-    console.log(e.target)
     menu_elements.map(element => {
         element.classList.remove("active")
     })
@@ -80,6 +79,3 @@ $(".wrapper").click((e) => {
     }
     
 })
-
-
-console.log(menuIsOpen)
