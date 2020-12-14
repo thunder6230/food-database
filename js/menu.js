@@ -24,6 +24,7 @@ const menuDescriptions = [
 ]
 const menu_elements = Array.from(document.querySelectorAll(".nav_menu a"))
 
+$(".menu_off").hide()
 
 summaryArr.map((summary,index) => {
     index != 0 ? summary.style.display = "none" : null
@@ -49,9 +50,7 @@ const openAndCloseMenu = (e) => {
 
 }
 
-$("document").ready(() => {
-    $(".menu_off").hide()
-})
+
 
 $("#menu_btn").click(() => {
     openAndCloseMenu()
@@ -81,3 +80,6 @@ $(".wrapper").click((e) => {
     }
     
 })
+
+
+console.log(menuIsOpen)

@@ -1,5 +1,5 @@
 
-createRecipesArray()
+// createRecipesArray()
 const recipesToDom = () => {
     site_main.innerHTML = `
     <div class='recipes_div'>
@@ -11,7 +11,6 @@ const recipesToDom = () => {
             </div>
     </div>
     `
-    randomRecipesArr = []
     createRandomArr(6)
     createRecipeDiv(randomRecipesArr)
 }
