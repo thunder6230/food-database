@@ -11,6 +11,7 @@ const recipesToDom = () => {
             </div>
     </div>
     `
+    randomRecipesArr = []
     createRandomArr(6)
     createRecipeDiv(randomRecipesArr)
 }

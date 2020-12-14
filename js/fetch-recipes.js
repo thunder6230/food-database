@@ -1,22 +1,26 @@
 const key = '14d33b55d1534b6c80c05b0753b90016'
 let randomRecipesArr = []
-
-// let recipesArr = []
-
-
 let recipesArr = []
+
+
+
+// Get the first 100 entries of the database - make faster the pageloading
 $("document").ready(()=> {
     console.log("fetching has started ...")
     $.getJSON("/js/recipes.json",
         (data) => {
-            data.map(recipe => {
-                recipesArr.push(recipe)
+            data.map((recipe,index) => {
+                if(index < 100 ){
+                    recipesArr.push(recipe)
+                } else return
             })
         }
     )
 })
 
-console.log(recipesArr)
+
+
+
 
 
 // const fetchRecipes = async  (query_type, number) => {
@@ -56,14 +60,14 @@ const createRecipeDiv = (recipeArr) => {
     recipes_div.innerHTML = ""
     recipeArr.map((recipe,index) => {
         recipes_div.innerHTML += `
-        <div class="recipe_card" onclick="showRecipe(${index})">
+        <div class="recipe_card" id="${index}"onclick="showRecipe(${index})">
             <img src="${recipe.image}" alt="${recipe.title}">
             <h2>${recipe.title}</h2>
             <p>Ready in ${recipe.readyInMinutes} minutes</p>
             <ul>
         `
         recipe.diets.map(diet => {
-            document.querySelector(".recipe_card").innerHTML += `<li>${diet}</li>`
+            document.querySelectorAll(".recipe_card")[index].innerHTML += `<li>${diet}</li>`
         })
         document.querySelector(".recipe_card").innerHTML += `
         </ul>
