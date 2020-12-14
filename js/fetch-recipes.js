@@ -10,7 +10,7 @@ $("document").ready(()=> {
     $.getJSON("/js/recipes.json",
         (data) => {
             data.map((recipe,index) => {
-                if(index < 100 ){
+                if(index < 50 ){
                     recipesArr.push(recipe)
                 } else return
             })
@@ -46,7 +46,7 @@ $("document").ready(()=> {
 const createRandomArr = (number) => {
     let randomNumbers = []
         for (let i = 0; i < number; i++) {
-            randomNumbers.push(Math.floor(Math.random() * 100))
+            randomNumbers.push(Math.floor(Math.random() * 50))
         }
         randomNumbers.map(number => {
             randomRecipesArr.push(recipesArr[number])
