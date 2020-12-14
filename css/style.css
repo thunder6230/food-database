@@ -119,11 +119,11 @@ body {
 
 .site_main {
     width: 60%;
-    min-height: 100vh;
+    min-height: 50vh;
     margin: 3em auto;
 }
 .site_main .greeting {
-    margin: 20em auto;
+    margin: 20em auto 5em;
     padding: 2em;
     background-color: rgba(255, 255, 255, 0.2);
 }
