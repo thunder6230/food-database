@@ -5,13 +5,16 @@ let randomRecipesArr = []
 
 
 let recipesArr = []
-$.getJSON("/js/recipes.json",
-     (data) => {
-        data.map(recipe => {
-            recipesArr.push(recipe)
-        })
-    }
-);
+$("document").ready(()=> {
+    $.getJSON("/js/recipes.json",
+        (data) => {
+            data.map(recipe => {
+                recipesArr.push(recipe)
+            })
+        }
+    )
+})
+
 console.log(recipesArr)
 
 
