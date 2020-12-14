@@ -13,25 +13,28 @@ $.getJSON("/js/recipes.json",
     }
 );
 console.log(recipesArr)
-const fetchRecipes = async  (query_type, number) => {
-    const url = 'https://api.spoonacular.com/recipes/' + query_type + "?number=" + number + "&apiKey=" + key
-    let response = await fetch(url)
-    if (response.ok) {
-        let data = await response.json()
-        return data.recipes
-    } else {
-        console.error("Not found")
-    }
 
-}
 
-const createRecipesArray = (number) => {
-    if(recipesArr.length == 0){
-        fetchRecipes("random", 100).then(recipes => {
-                recipes.map(recipe => recipesArr.push(recipe))
-        })
-    }
-}
+// const fetchRecipes = async  (query_type, number) => {
+//     const url = 'https://api.spoonacular.com/recipes/' + query_type + "?number=" + number + "&apiKey=" + key
+//     let response = await fetch(url)
+//     if (response.ok) {
+//         let data = await response.json()
+//         return data.recipes
+//     } else {
+//         console.error("Not found")
+//     }
+
+// }
+
+// const createRecipesArray = () => {
+//     if(recipesArr.length == 0){
+//         fetchRecipes("random", 100).then(recipes => {
+//                 recipes.map(recipe => recipesArr.push(recipe))
+//         })
+//     }
+// }
+
 const createRandomArr = (number) => {
     let randomNumbers = []
         for (let i = 0; i < number; i++) {
