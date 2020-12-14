@@ -12,4 +12,5 @@ const homeToDom = () => {
         </div>
     `)
 }
+
 homeToDom()
