@@ -25,7 +25,7 @@ const menuDescriptions = [
 const menu_elements = Array.from(document.querySelectorAll(".nav_menu a"))
 
 $(".menu_off").hide()
-
+menu_elements[0].classList.add("active")
 summaryArr.map((summary,index) => {
     index != 0 ? summary.style.display = "none" : null
     
