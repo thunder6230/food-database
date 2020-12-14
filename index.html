@@ -4,8 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Food Database | Welcome</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/diet.css">
+    <link rel="stylesheet" href="css/recipes.css">
+
 </head>
 <body>
-    Hi
+    <div class="wrapper">
+        <header class="site_header">
+            <div class="menu">
+                <div class="menu_top">
+                    <h1>The Food Database</h1>
+                    <div class="menu_right">
+                        <span class="active_page">Home</span>
+                        <i class="fas fa-bars" id="menu_btn"></i> 
+                    </div>
+                </div>
+                <div class="menu_off">
+                    <div class="menu_summary" id="0">
+                        <span id="active_page">Home</span>
+                        <p>Back to home screen</p>
+                    </div>
+                    <div class="menu_summary" id="1">
+                        <h2>Diets</h2>
+                        <p>Some informations collected about the different diets like Omnivore, Vegetarian, Ketogenic and so on ...</p>      
+                    </div>
+                    <div class="menu_summary" id="2">
+                        <h2>Recipes</h2>
+                        <p>You can search for many delicious meals in our large database ...</p>      
+                    </div>
+                    <div class="menu_summary" id="3">
+                        <h2>Health</h2>
+                        <p>The best ways to keep our health and immunsystem on peak</p>      
+                    </div>
+                    <div class="menu_summary" id="4">
+                        <h2>Eating Disorders</h2>
+                        <p>Some thoughs about the top health related eating disorders like Diabetes, Glutenintolerance and ...</p>      
+                    </div>
+                    <nav class="nav_menu" id="nav_menu">
+                        <ul>
+                            <a onclick="homeToDom()"><li id="0">Home</li></a>
+                            <a onclick="dietsToDom()"><li id="1">Diets</li></a>
+                            <a onclick="recipesToDom()"><li id="2">Recipes</li></a>
+                            <a href=""><li id="3">Health</li></a>
+                            <a href=""><li id="4">Eating Disorders</li></a>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            
+        </header>
+        <main class="site_main"></main>
+        <footer class="site_footer"></footer>
+    </div>
 </body>
+<script src="/js/home.js"></script>
+<script src="/js/menu.js"></script>
+<script src="/js/diet.js"></script>
+<script src="js/recipes.json"></script>
+<script src="/js/fetch-recipes.js"></script>
+<script src="/js/recipes.js"></script>
 </html>

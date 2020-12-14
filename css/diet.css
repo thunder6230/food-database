@@ -1,0 +1,19 @@
+.site_main .diets {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    margin: 10em 0;
+}
+.site_main .diets .diet_card {
+    width: 30%;
+    margin-bottom: 3em;
+}
+.site_main .diets .diet_card img {
+    width: 100%;
+    object-fit: cover;
+    height: 15em;
+}
+.site_main .diets .diet_card h2 {
+    text-align: center;
+}

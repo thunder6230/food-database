@@ -1,0 +1,25 @@
+.site_main .recipes_div form {
+    margin-top: 10em;
+}
+
+.site_main .recipes_div .results {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 5em;
+}
+
+.site_main .recipes_div .results .recipe_card {
+    width: 30%;
+    margin-bottom: 3em;
+}
+.site_main .recipes_div .results .recipe_card img {
+    width: 100%;
+    object-fit: cover;
+    height: 15em;
+}
+
+.site_main .recipes_div .results .recipe_card h2 {
+    text-align: center;
+}
