@@ -26,7 +26,8 @@ const diets = [
             <li>fish and seafood are enjoyed more often</li>
             <li>fruits, vegetables, whole grains, and legumes form the basis of the diet</li>
         </ul>
-        Mediterranean diets are also known to be higher in monounsaturated and polyunsaturated fats, from olive oil for example, rather than saturated fat. As you probably expect, this diet also focuses on natural, minimally processed foods, similar to the clean eating philosophy.`,
+        <p>
+        Mediterranean diets are also known to be higher in monounsaturated and polyunsaturated fats, from olive oil for example, rather than saturated fat. As you probably expect, this diet also focuses on natural, minimally processed foods, similar to the clean eating philosophy.</p>`,
         allowed: `Fruits, vegetables, whole grains, legumes, fish, chicken, olive oil, nuts, red wine`,
         not_allowed: `Eggs, dairy, red meat, highly processed grains, sweets and desserts`
     },
@@ -146,7 +147,8 @@ const createDietCards = () => {
 
 
 
-const showDietDescription = (id, generateNew) => {
+const showDietDescription = (id) => {
+    window.scrollTo(0, 0);
     console.log("showdietdescription")
     let diet = diets[id]
     createExampleRecipeArray(diet)
@@ -158,10 +160,14 @@ const showDietDescription = (id, generateNew) => {
             <h2>${diet.name}</h2>
             <i class="fas fa-window-close" onclick="dietsToDom()"></i>
         </div>
-        <img src="${diet.image}" alt="${diet.name}"
-        <p>${diet.body}</p>
-        <p><strong>Allowed: </strong>${diet.allowed}</p>
-        <p><strong>Not Allowed: </strong>${diet.not_allowed}</p>
+
+        <div class="description_body">
+            <img src="${diet.image}" alt="${diet.name}">
+            <p>${diet.body}</p>
+            <p><strong>Allowed: </strong>${diet.allowed}</p>
+            <p><strong>Not Allowed: </strong>${diet.not_allowed}</p>
+        </div>
+        
         <div class='recipes_div'>
             <h3>Some examples</h3>
             <div class="results">
@@ -237,7 +243,6 @@ const createExampleRecipeArray = (diet) => {
             })
         }
     }
-    
 }
 
 const generateRandomNumber = (arrayLength) => {
@@ -255,13 +260,10 @@ const generateRandomNumber = (arrayLength) => {
          } else {
              randomNumbers.push(number)
          }
-        
         }
     }
-    
-    console.log(randomNumbers)
-
 }
+
 const dietsToDom = () => {
     window.scrollTo(0, 0);
     console.log("Diets have been listed...")
@@ -275,46 +277,4 @@ const dietsToDom = () => {
 }
 
 
-
-
-// const getExampleRecipesArr = (diet) => {
-//     let condition
-//     recipesArr.map(recipe => {
-//         if (diet == "Gluten Free"){
-//             condition = recipe.gluten
-//             pushRandomRecipes(condition)
-//         } else if (diet == "Vegetarian"){
-//             condition = recipe.gluten
-//             pushRandomRecipes(condition)
-//         } else if (diet == "Vegan"){
-//             condition = recipe.gluten
-//             pushRandomRecipes(condition)
-//         } else if (diet == "Low FODMAP"){
-//             condition = recipe.gluten
-//             pushRandomRecipes(condition)
-//         } else if (diet == "GAPS"){
-//             condition = recipe.gaps
-//             pushRandomRecipes(condition)
-//         } else if (diet == "Vegan"){
-//             condition = recipe.vegan
-//             pushRandomRecipes(condition)
-//         }
-        
-         
-//     })
-// }
-
-// const pushRandomRecipes = (condition) => {
-//     if(condition == recipe.gaps){
-//         (condition == "yes")
-//     }else {
-//         (condition == true)
-//     }
-//     temp.push(recipe)
-//     randomNumbers.map(number => {
-//         randomRecipesArr.push(temp[number])
-//     })
-    
-// }
-
-$("document").ready( createDietCards() )
+createDietCards()

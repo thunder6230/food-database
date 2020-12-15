@@ -57,12 +57,14 @@ const openAndCloseMenu = (e) => {
 
 }
 
-
-
 $("#menu_btn").click(() => {
     openAndCloseMenu()
 })
-$(".nav_menu li").click(()=> {
+
+$(".nav_menu li").click((e)=> {
+    if(e.target.parentElement.classList.contains("active")){
+        return
+    }
     openAndCloseMenu()
     
 })
@@ -70,8 +72,8 @@ $(".nav_menu a").click((e) => {
     menu_elements.map(element => {
         element.classList.remove("active")
     })
-    $(".active_page").text(e.target.textContent)
-    e.target.parentElement.classList.add("active")
+        $(".active_page").text(e.target.textContent)
+        e.target.parentElement.classList.add("active")
 })
 $(".site_main").click(()=> {
     if(menuIsOpen){

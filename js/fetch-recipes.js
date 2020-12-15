@@ -8,7 +8,7 @@ let recipesArr = []
 $("document").ready(()=> {
     $.getJSON("/modules/onload_recipes.json",
         (data) => {
-            data.map((recipe,index) => {
+            data.map((recipe) => {
                     recipesArr.push(recipe)
             })
         }
@@ -44,6 +44,5 @@ const createRandomArr = (number) => {
         randomNumbers.map(number => {
             randomRecipesArr.push(recipesArr[number])
         })
-        console.log(randomRecipesArr)
 }
 

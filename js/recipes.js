@@ -1,6 +1,13 @@
 let searchResultArr = []
-// createRecipesArray()
+let search_counter = 0
+let checkboxArr
+let isVegan = false
+let isVegetarian = false
+let isGlutenFree = false
+let isLactoseFree = false
+
 const createRecipeDiv = (array, placeClass) => {
+    window.scrollTo(0, 0);
     console.log("loading recipes cards")
     if(array.length > 0){
         let recipes_div = document.querySelector(`.${placeClass}`)
@@ -10,21 +17,20 @@ const createRecipeDiv = (array, placeClass) => {
             <div class="recipe_card" id="${index}"onclick="showRecipe(${index})">
                 <img src="${recipe.image}" alt="${recipe.title}">
                 <h2>${recipe.title}</h2>
-                <p>Ready in ${recipe.readyInMinutes} minutes</p>
-                <ul>
-            `
-            recipe.diets.map(diet => {
-                document.querySelectorAll(".recipe_card")[index].innerHTML += `<li>${diet}</li>`
-            })
+                <p><i class="fas fa-clock"></i> Ready in ${recipe.readyInMinutes} minutes</p>
+                <ul class="recipe_preferences">`
+                recipe.diets.map(diet => {
+                    document.querySelectorAll(".recipe_preferences")[index].innerHTML += `<li>${diet}</li>`
+                })
             document.querySelector(".recipe_card").innerHTML += `
-            </ul>
+                </ul>
             </div>`
         })  
     }
-    
 }
 
 const showRecipe = (index) => {
+    window.scrollTo(0, 0);
     let generate
     randomRecipesArr.length == 0 ? generate = true : generate = false
     let recipe = recipesArr[index]
@@ -86,9 +92,30 @@ const recipesToDom = (generateNew) => {
     site_main.innerHTML = `
     <div class='recipes_div' style="display: none;">
         <div class="search_div">
-            <input type="text" class="search_input" required>
-            <p class="error"></p>
-            <button class="search_btn" onclick="searchForMeals()">Search for Recipe</button>
+
+            <div class="search_header">
+                <input type="text" class="search_input" required>
+                <button class="search_btn" onclick="searchForMeals()">Search for Recipe</button>
+            </div>
+            <div class="input_checkbox">
+                <div>
+                    <label for="vegetarian">Vegetarian <img src="https://img.icons8.com/plasticine/100/000000/vegetarian-food.png"/></label>
+                    <input type="checkbox" name="vegetarian" id="vegetarian" onchange="onChangeVegetarian()">
+                </div>
+                <div>
+                    <label for="vegetarian">Vegan <img src="https://img.icons8.com/cute-clipart/64/000000/natural-food.png"/></i></label>
+                    <input type="checkbox" name="vegan" id="vegan" onchange="onChangeVegan()">
+                </div>
+                <div>
+                    <label for="vegetarian">Glutenfree <img src="https://img.icons8.com/plasticine/100/000000/no-gluten.png"/></label>
+                    <input type="checkbox" name="glutenfree" id="glutenfree" onchange="onChangeGlutenfree()">
+                </div>
+                <div>
+                    <label for="vegetarian">Lactosefree <img src="https://img.icons8.com/cute-clipart/64/000000/no-milk.png"/></label>
+                    <input type="checkbox" name="lactosefree" id="lactosefree" onchange="onChangeLactosefree()">
+                </div>
+            </div>
+            
         </div>
         <div class="results">
         </div>
@@ -99,61 +126,112 @@ const recipesToDom = (generateNew) => {
         createRandomArr(6) 
     }
     createRecipeDiv(randomRecipesArr, "results")
-    $(".recipes_div").fadeIn(500)
-    
+    $(".recipes_div").fadeIn(500)    
 }
 
-
-
-
+const onChangeVegetarian = () => {
+    isVegetarian = !isVegetarian
+}
+const onChangeVegan = () => {
+    isVegan = !isVegan
+}
+const onChangeGlutenfree = () => {
+    isGlutenFree = !isGlutenFree
+}
+const onChangeLactosefree = () => {
+    isLactoseFree = !isLactoseFree
+}
 
 const searchForMeals = () => {
-    console.log("getting the new data")
-    //need counter to reduce timeout after all the data loaded
-    getAllRecipes()
-    $(".recipes_div .results").html(`
-        <img src="/images/6.svg" alt="loading...">
-    `)
-    setTimeout( () => {
-        searchResultArr = []
-        let keyword = $(".search_input").val()
-        if(keyword == ""){
-            $(".search_div .error").text("Please add a keyword!")
-        } else {
-            //only letter edge case
-            recipesArr.map(recipe => {
-                keyword = keyword.toLowerCase()
-                let recipeLow = recipe.title.toLowerCase()
-                if (recipeLow.indexOf(keyword) != -1) {
-                    searchResultArr.push(recipe)
-                }
-            })
-            console.log(searchResultArr)
-            $(".recipes_div").hide() 
-            createRecipeDiv(searchResultArr, "results")
-            $(".recipes_div").fadeIn(500) 
+    $(".search_div .error").text("")
+    let regex = (/^[A-Za-z]+$/)
+    let keyword = $(".search_input").val()
+    if(keyword == ""){
+        setErrorMessage("Please add a keyword!")
+    }else if( keyword.match(regex) == null ) {
+        setErrorMessage("Please write only letters!")
+    } else {
+        console.log("getting the new data")
+        //need counter to reduce timeout after all the data loaded
+        if(search_counter < 1) {
+            getAllRecipes()
+            $(".recipes_div .results").html(`
+            <div class="search_message">
+                <h1>Please be patient, the first loading takes a bit...</h1>
+                <img src="/images/6.svg" alt="loading...">
+            </div>    
+            `)
+            setTimeout( () => {
+                resultsToDom(keyword)
+            }, 8000);
+            }else {
+                resultsToDom(keyword)
             }
-    
-    }, 5000);
-    
-    
+        search_counter++
+    }
 }
 
 
 const getAllRecipes = () => {
-    if (recipesArr.length == 50){
+    if (recipesArr.length < 100){
         recipesArr = []
-
         $.getJSON("/modules/recipes.json",
             (data) => {
                 data.map((recipe) => recipesArr.push(recipe))
             }
         )
-        
     }
-    
 }
 
+const resultsToDom = (keyword) => {
+
+    searchResultArr = []
+    //only letter edge case
+    recipesArr.map(recipe => {
+        keyword = keyword.toLowerCase()
+        let recipeLow = recipe.title.toLowerCase()
+        if (recipeLow.indexOf(keyword) != -1) {
+            searchResultArr.push(recipe)
+        }
+    })
+    if (isVegetarian){
+        searchResultArr = searchResultArr.filter(recipe => recipe.vegetarian)
+    }
+    if (isVegan){
+        searchResultArr = searchResultArr.filter(recipe => recipe.vegan)
+    }
+    if (isGlutenFree){
+        searchResultArr = searchResultArr.filter(recipe => recipe.glutenFree)
+    }
+    if (isLactoseFree){
+        searchResultArr = searchResultArr.filter(recipe => recipe.dairyFree)
+    }
+    
+    console.log(searchResultArr)
+    $(".recipes_div").hide() 
+    if (searchResultArr.length > 0) {
+        createRecipeDiv(searchResultArr, "results") 
+    }   else {
+        $(".recipes_div .results").html(`
+            <div class="search_message">
+                <h1>There is no such data, try again...</h1>
+            </div>    
+        `)
+    }
+    $(".recipes_div").fadeIn(500)
+}
+
+
+const setErrorMessage = (message) => {
+    $(".search_btn").hide()
+    $(".search_input").val(`${message}`)
+    $(".search_input").addClass("error")
+    setTimeout(() => {
+        $(".search_input").val("")
+        $(".search_input").removeClass("error")
+        $(".search_btn").show()
+    }, 2000);
+}
 
 
 
