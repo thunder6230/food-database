@@ -33,9 +33,16 @@ summaryArr.map((summary,index) => {
 
 $(".nav_menu a").mouseover((e)=> {
 
-    let id = e.target.getAttribute("id")
     $(".menu_summary").hide()
-    $(summaryArr[id]).fadeIn(200)
+    let id = e.target.getAttribute("id")
+    let menuToShow = menuDescriptions[id]
+    $(".menu_summary").html(`
+        <div class="menu_summary" id="0">
+            <h2>${menuToShow.name}</h2>
+            <p>${menuToShow.description}</p>
+        </div>
+    `)
+    $(".menu_summary").fadeIn(200)
    
 })
 

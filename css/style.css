@@ -81,12 +81,16 @@ body {
 
 .site_header .menu .menu_off {
     display: flex;
+    flex-direction: row-reverse;
     justify-content: space-between;
     width: 100%;
 }
 
 .site_header .menu .menu_off .menu_summary {
     margin-left: 3em;
+}
+.site_header .menu .menu_off nav {
+    
 }
 
 .site_header .menu .menu_off ul {
@@ -102,6 +106,7 @@ body {
 
 
 .site_header .menu .menu_off a {
+
     color: #fff;
     text-decoration: none;
     font-weight: 600;
@@ -109,7 +114,6 @@ body {
 }
 .site_header .menu .menu_off ul a:hover{
     text-decoration: underline;
-    padding: 0 0.5em;
     cursor: pointer;
 }
 .site_header .menu .menu_off ul a.active{
