@@ -92,7 +92,6 @@ const diets = [
         allowed: `Foods low in FODMAPs. This includes meat, eggs, fish, lactose free dairy, some nuts, gluten-free grains, certain fruits and vegetables (e.g. bananas, blueberries, oranges, grapes, bell peppers, cucumber, kale, potatoes, tomatoes)`,
         not_allowed: `Foods high in FODMAPS. This includes high lactose dairy (like milk), cashews, pistachios, legumes, gluten-containing grains, apples, dried fruit, stone fruit, cauliflower, celery, mushrooms, onions, garlic, sugar alcohols (e.g. sorbitol, maltitol, xylitol)`
     },
-    ,
     {
         id: 10,
         name: "Pescetarian",
@@ -128,6 +127,7 @@ const diets = [
 ]
 let dietsArr = []
 let exampleRecipeArr = []
+let randomNumbers = []
 const site_main = document.querySelector('.site_main')
 
 
@@ -143,11 +143,13 @@ const createDietCards = () => {
         `)
     })
 }
+
+
+
 const showDietDescription = (id, generateNew) => {
+    console.log("showdietdescription")
     let diet = diets[id]
-    if(generateNew){
-        createExampleRecipeArray(diet.name)
-    }
+    createExampleRecipeArray(diet)
     site_main.innerHTML = "<div class='diet_description' style='display: none;'></div>"
     const description = document.querySelector(".diet_description")
     description.innerHTML = `
@@ -169,6 +171,97 @@ const showDietDescription = (id, generateNew) => {
     createRecipeDiv(exampleRecipeArr, "results")
     $(".diet_description").fadeIn(500)
 }
+
+const createExampleRecipeArray = (diet) => {
+    console.log("createExampleRecipeArray")
+    exampleRecipeArr = []
+    randomNumbers = []
+    temp = []
+   
+    if (diet.name == "Omnivore"){
+        generateRandomNumber(recipesArr.length)
+        randomNumbers.map(number => {
+            exampleRecipeArr.push(recipesArr[number])
+        })
+    } else {
+        if (diet.name == "Gluten Free"){
+           recipesArr.map(recipe => {
+                if (recipe.glutenFree) {
+                    temp.push(recipe)
+                }
+            })
+            generateRandomNumber(temp.length)
+            randomNumbers.map(number => {
+                exampleRecipeArr.push(temp[number])
+            })
+        } else if (diet.name == "Vegetarian"){
+            recipesArr.map(recipe => {
+                if (recipe.vegetarian) {
+                    temp.push(recipe)
+                }
+            })
+            generateRandomNumber(temp.length)
+            randomNumbers.map(number => {
+                exampleRecipeArr.push(temp[number])
+            })
+        } else if (diet.name == "Vegan"){
+            
+            recipesArr.map(recipe => {
+                if (recipe.vegan) {
+                    temp.push(recipe)
+                }
+            })
+            generateRandomNumber(temp.length)
+            randomNumbers.map(number => {
+                exampleRecipeArr.push(temp[number])
+            })
+        } else if (diet.name == "Low FODMAP") {
+            recipesArr.map(recipe => {
+                if (recipe.lowFodmap) {
+                    temp.push(recipe)
+                }
+            })
+            generateRandomNumber(temp.length)
+            randomNumbers.map(number => {
+                exampleRecipeArr.push(temp[number])
+            })
+            console.log(exampleRecipeArr)
+        } else if (diet.name == "GAPS") {
+            recipesArr.map(recipe => {
+                if (recipe.gasp == "yes") {
+                    temp.push(recipe)
+                }})
+            generateRandomNumber(temp.length)
+            randomNumbers.map(number => {
+                exampleRecipeArr.push(temp[number])
+            })
+        }
+    }
+    
+}
+
+const generateRandomNumber = (arrayLength) => {
+    if (arrayLength < 3){
+        for (let i = 0; i < arrayLength; i++){
+            randomNumbers.push(i)
+        }
+    
+    }else {
+        for (let i = 0; i < 3; i++) {
+         let number =  Math.floor(Math.random() * arrayLength)
+         if (randomNumbers.includes(number)) {
+             number =  Math.floor(Math.random() * arrayLength)
+             randomNumbers.push(number)
+         } else {
+             randomNumbers.push(number)
+         }
+        
+        }
+    }
+    
+    console.log(randomNumbers)
+
+}
 const dietsToDom = () => {
     window.scrollTo(0, 0);
     console.log("Diets have been listed...")
@@ -182,95 +275,46 @@ const dietsToDom = () => {
 }
 
 
-const createExampleRecipeArray = (diet) => {
-    console.log(diet)
-    exampleRecipeArr = []
-    let randomNumbers = []
-    for (let i = 0; i < 3; i++) {
-        randomNumbers.push(Math.floor(Math.random() * 50))
-    }
-    if (diet == "Omnivore"){
-        randomNumbers.map(number => {
-            exampleRecipeArr.push(recipesArr[number])
-        })
-    } else {
-        if (diet == "Gluten Free"){
-            recipesArr.map(recipe => {
-                if(recipe.glutenFree == true){
-                    exampleRecipeArr.push(recipe)
-                }
-            })
-        } else if (diet == "Vegetarian"){
-            recipesArr.map(recipe => {
-                if(recipe.vegetarian == true){
-                    exampleRecipeArr.push(recipe)
-                }
-            })
-        } else if (diet == "Vegan"){
-            recipesArr.map(recipe => {
-                if(recipe.vegan == true){
-                    exampleRecipeArr.push(recipe)
-                }
-            })
-        } else if (diet == "Low FODMAP") {
-            recipesArr.map(recipe => {
-                if(recipe.lowFodmap == true){
-                    exampleRecipeArr.push(recipe)
-                }
-            })
-        } else if (diet == "GAPS") {
-            recipesArr.map(recipe => {
-                if(recipe.gaps == "yes"){
-                    exampleRecipeArr.push(recipe)
-                }
-            })
-        } else if (diet == "Low FODMAP") {
-            recipesArr.map(recipe => {
-                if(recipe.lowFodmap == true){
-                    exampleRecipeArr.push(recipe)
-                }
-            })
-        }
-    }
-}
+
+
+// const getExampleRecipesArr = (diet) => {
+//     let condition
+//     recipesArr.map(recipe => {
+//         if (diet == "Gluten Free"){
+//             condition = recipe.gluten
+//             pushRandomRecipes(condition)
+//         } else if (diet == "Vegetarian"){
+//             condition = recipe.gluten
+//             pushRandomRecipes(condition)
+//         } else if (diet == "Vegan"){
+//             condition = recipe.gluten
+//             pushRandomRecipes(condition)
+//         } else if (diet == "Low FODMAP"){
+//             condition = recipe.gluten
+//             pushRandomRecipes(condition)
+//         } else if (diet == "GAPS"){
+//             condition = recipe.gaps
+//             pushRandomRecipes(condition)
+//         } else if (diet == "Vegan"){
+//             condition = recipe.vegan
+//             pushRandomRecipes(condition)
+//         }
+        
+         
+//     })
+// }
+
+// const pushRandomRecipes = (condition) => {
+//     if(condition == recipe.gaps){
+//         (condition == "yes")
+//     }else {
+//         (condition == true)
+//     }
+//     temp.push(recipe)
+//     randomNumbers.map(number => {
+//         randomRecipesArr.push(temp[number])
+//     })
+    
+// }
 
 $("document").ready( createDietCards() )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// $("document").ready(()=> {
-//     diets.forEach(diet => {
-//         dietsArr.push(`
-//         <div class="diet_div">
-//             <h2>${diet.name}</h2>
-//             <img src="${diet.image}" alt="${diet.name}"
-//             <p>${diet.body}</p>
-//             <p><strong>Allowed: </strong>${diet.allowed}</p>
-//             <p><strong>Not Allowed: </strong>${diet.not_allowed}</p>
-//         </div>
-//         `
-//         )
-//     })
-// })

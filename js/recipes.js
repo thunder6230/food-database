@@ -1,23 +1,27 @@
 let searchResultArr = []
 // createRecipesArray()
-const createRecipeDiv = (recipeArr, placeClass) => {
-    let recipes_div = document.querySelector(`.${placeClass}`)
-    recipes_div.innerHTML = ""
-    recipeArr.map((recipe,index) => {
-        recipes_div.innerHTML += `
-        <div class="recipe_card" id="${index}"onclick="showRecipe(${index})">
-            <img src="${recipe.image}" alt="${recipe.title}">
-            <h2>${recipe.title}</h2>
-            <p>Ready in ${recipe.readyInMinutes} minutes</p>
-            <ul>
-        `
-        recipe.diets.map(diet => {
-            document.querySelectorAll(".recipe_card")[index].innerHTML += `<li>${diet}</li>`
-        })
-        document.querySelector(".recipe_card").innerHTML += `
-        </ul>
-        </div>`
-    })
+const createRecipeDiv = (array, placeClass) => {
+    console.log("loading recipes cards")
+    if(array.length > 0){
+        let recipes_div = document.querySelector(`.${placeClass}`)
+        recipes_div.innerHTML = ""
+        array.map((recipe,index) => {
+            recipes_div.innerHTML += `
+            <div class="recipe_card" id="${index}"onclick="showRecipe(${index})">
+                <img src="${recipe.image}" alt="${recipe.title}">
+                <h2>${recipe.title}</h2>
+                <p>Ready in ${recipe.readyInMinutes} minutes</p>
+                <ul>
+            `
+            recipe.diets.map(diet => {
+                document.querySelectorAll(".recipe_card")[index].innerHTML += `<li>${diet}</li>`
+            })
+            document.querySelector(".recipe_card").innerHTML += `
+            </ul>
+            </div>`
+        })  
+    }
+    
 }
 
 const showRecipe = (index) => {
@@ -105,11 +109,11 @@ const recipesToDom = (generateNew) => {
 
 const searchForMeals = () => {
     console.log("getting the new data")
+    //need counter to reduce timeout after all the data loaded
     getAllRecipes()
     $(".recipes_div .results").html(`
         <img src="/images/6.svg" alt="loading...">
     `)
-
     setTimeout( () => {
         searchResultArr = []
         let keyword = $(".search_input").val()
@@ -145,6 +149,7 @@ const getAllRecipes = () => {
                 data.map((recipe) => recipesArr.push(recipe))
             }
         )
+        
     }
     
 }

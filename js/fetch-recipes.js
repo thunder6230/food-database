@@ -9,9 +9,7 @@ $("document").ready(()=> {
     $.getJSON("/modules/onload_recipes.json",
         (data) => {
             data.map((recipe,index) => {
-                if(index < 50 ){
                     recipesArr.push(recipe)
-                } else return
             })
         }
     )
