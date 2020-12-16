@@ -14,12 +14,14 @@ $("document").ready(()=> {
             })
         }
     )
+    console.log(recipesArr)
     console.log("fetching 2")
     $.getJSON("/modules/recipes_new.json",
             (data) => {
                 data.map((recipe) => recipesArr.push(recipe))
             }
-        )
+    )
+     console.log(recipesArr)
 })
 
 
