@@ -6,7 +6,7 @@ let isVegetarian = false
 let isGlutenFree = false
 let isLactoseFree = false
 
-const createRecipeDiv = (array, placeClass) => {
+const createRecipeDiv = (array, placeClass, backToDiet, id) => {
     window.scrollTo(0, 0);
     console.log("loading recipes cards")
     if(array.length > 0){
@@ -14,7 +14,7 @@ const createRecipeDiv = (array, placeClass) => {
         recipes_div.innerHTML = ""
         array.map((recipe,index) => {
             recipes_div.innerHTML += `
-            <div class="recipe_card" id="${index}"onclick="showRecipe(${index})">
+            <div class="recipe_card" id="${index}"onclick="showRecipe(${index}, ${backToDiet}, ${id})">
                 <img src="${recipe.image}" alt="${recipe.title}">
                 <h2>${recipe.title}</h2>
                 <p><i class="fas fa-clock"></i> Ready in ${recipe.readyInMinutes} minutes</p>
@@ -29,7 +29,7 @@ const createRecipeDiv = (array, placeClass) => {
     }
 }
 
-const showRecipe = (index) => {
+const showRecipe = (index, backToDiet, id) => {
     window.scrollTo(0, 0);
     let generate
     randomRecipesArr.length == 0 ? generate = true : generate = false
@@ -72,14 +72,25 @@ const showRecipe = (index) => {
             </ul>
         </div>`
         }
-        recipe_div.innerHTML += `
+        if(backToDiet){
+           recipe_div.innerHTML += `
+           <i class="fas fa-window-close" onclick="showDietDescription(${id})"></i>
+           
+        ` 
+        }else {
+            recipe_div.innerHTML += `
            <i class="fas fa-window-close" onclick="recipesToDom(${generate})"></i>
            
         `
+        }
+        
          $(".recipe_detail").fadeIn(500)
+
+        savePageToSessionStorage($(".site_main"))
 }
 
 const recipesToDom = (generateNew) => {
+
     window.scrollTo(0, 0);
     recipe_menu_class = menu_elements[2].classList
     if (!recipe_menu_class.contains("active")) {
@@ -125,7 +136,12 @@ const recipesToDom = (generateNew) => {
         randomRecipesArr = []
         createRandomArr(6) 
     }
-    createRecipeDiv(randomRecipesArr, "results")
+    if(searchResultArr.length > 0){
+        createRecipeDiv(searchResultArr, "results")
+    } else {
+        createRecipeDiv(randomRecipesArr, "results")
+    }
+    
     $(".recipes_div").fadeIn(500) 
     
 }
@@ -162,7 +178,7 @@ const searchForMeals = () => {
         console.log("getting the new data")
         //need counter to reduce timeout after all the data loaded
         if(search_counter < 1) {
-            getAllRecipes()
+            // getAllRecipes()
             $(".recipes_div .results").html(`
             <div class="search_message">
                 <h1>Please be patient, the first loading takes a bit...</h1>
@@ -171,7 +187,7 @@ const searchForMeals = () => {
             `)
             setTimeout( () => {
                 resultsToDom(keyword)
-            },10000);
+            },6000);
             }else {
                 resultsToDom(keyword)
             }
@@ -180,16 +196,11 @@ const searchForMeals = () => {
 }
 
 
-const getAllRecipes = () => {
-    if (recipesArr.length < 100){
-        recipesArr = []
-        $.getJSON("/modules/recipes.json",
-            (data) => {
-                data.map((recipe) => recipesArr.push(recipe))
-            }
-        )
-    }
-}
+// const getAllRecipes = () => {
+//     if (recipesArr.length < 100){
+        
+//     }
+// }
 
 const resultsToDom = (keyword) => {
 
@@ -215,7 +226,6 @@ const resultsToDom = (keyword) => {
         searchResultArr = searchResultArr.filter(recipe => recipe.dairyFree)
     }
     
-    console.log(searchResultArr)
     $(".recipes_div").hide() 
     if (searchResultArr.length > 0) {
         createRecipeDiv(searchResultArr, "results") 
@@ -240,7 +250,6 @@ const setErrorMessage = (message) => {
         $(".search_btn").show()
     }, 2000);
 }
-
 
 
 

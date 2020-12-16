@@ -129,6 +129,7 @@ const diets = [
 let dietsArr = []
 let exampleRecipeArr = []
 let randomNumbers = []
+let lastPage
 const site_main = document.querySelector('.site_main')
 
 
@@ -173,7 +174,7 @@ const showDietDescription = (id) => {
             </div>
     </div>
     `
-    createRecipeDiv(exampleRecipeArr, "results")
+    createRecipeDiv(exampleRecipeArr, "results", true, id)
     $(".diet_description").fadeIn(500)
 }
 
@@ -254,6 +255,5 @@ const dietsToDom = () => {
     }) 
     $(".diets").fadeIn(500)
 }
-
 
 createDietCards()
