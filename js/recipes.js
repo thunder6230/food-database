@@ -175,10 +175,7 @@ const searchForMeals = () => {
     }else if( keyword.match(regex) == null ) {
         setErrorMessage("Please write only letters!")
     } else {
-        console.log("getting the new data")
-        //need counter to reduce timeout after all the data loaded
         if(search_counter < 1) {
-            // getAllRecipes()
             $(".recipes_div .results").html(`
             <div class="search_message">
                 <h1>Please be patient, the first loading takes a bit...</h1>
@@ -187,7 +184,7 @@ const searchForMeals = () => {
             `)
             setTimeout( () => {
                 resultsToDom(keyword)
-            },6000);
+            },3000);
             }else {
                 resultsToDom(keyword)
             }

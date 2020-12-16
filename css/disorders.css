@@ -1,0 +1,41 @@
+.disorders {
+    width: 80%;
+    margin: 10em auto;
+    background-color: rgba(255, 255, 255, 0.651);
+    padding: 4em 4em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.disorder {
+    margin: auto;
+    width: 90%;
+}
+
+.disorders h2 {
+    border-bottom: 3px solid rgb(255, 0, 0);
+    display: inline;
+    padding-left: 0.2em;
+    padding-right: 1em;
+    font-weight: 400;
+    font-size: 1.8em;
+    color: rgb(255, 255, 255);
+}
+.disorders p {
+    padding-left: 1em;
+    color: #000;
+    margin-bottom: 2em;
+}
+
+.disorders a {
+    color: rgb(65, 65, 65);
+    text-decoration: none;
+    font-size: 1.1em;
+    margin-right: 3em;
+    display: inline;
+    align-self: flex-end;
+
+}
+.disorders a:hover {
+    text-decoration: underline;
+}

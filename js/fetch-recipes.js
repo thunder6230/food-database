@@ -6,7 +6,7 @@ let recipesArr = []
 
 // Get the first 100 entries of the database - make faster the pageloading
 $("document").ready(()=> {
-    console.log("fetching 1")
+
     $.getJSON("/modules/onload_recipes.json",
         (data) => {
             data.map((recipe) => {
@@ -14,14 +14,11 @@ $("document").ready(()=> {
             })
         }
     )
-    console.log(recipesArr)
-    console.log("fetching 2")
     $.getJSON("/modules/recipes_new.json",
-            (data) => {
-                data.map((recipe) => recipesArr.push(recipe))
-            }
+        (data) => {
+            data.map((recipe) => recipesArr.push(recipe))
+        }
     )
-     console.log(recipesArr)
 })
 
 

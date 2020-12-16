@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/diet.css">
     <link rel="stylesheet" href="css/recipes.css">
+    <link rel="stylesheet" href="css/disorders.css">
 
 </head>
 <body>
@@ -28,8 +29,8 @@
                             <a onclick="homeToDom()"><li id="0">Home</li></a>
                             <a onclick="dietsToDom()"><li id="1">Diets</li></a>
                             <a onclick="recipesToDom(true)"><li id="2">Recipes</li></a>
-                            <a href=""><li id="3">Health</li></a>
-                            <a href=""><li id="4">Eating Disorders</li></a>
+                            <a href="#"><li id="3">Health</li></a>
+                            <a onclick="disordersToDom()"><li id="4">Eating Disorders</li></a>
                         </ul>
                     </nav>
                     <div class="menu_summary"></div>
@@ -39,7 +40,9 @@
         <main class="site_main">
         </main>
         <footer class="site_footer">
-            The icons are from <a href="https://icons8.com/icon/W0dCtxDtta3K/no-gluten">Icons8</a>
+            <p>The icons are from <a href="https://icons8.com/icon/W0dCtxDtta3K/no-gluten">Icons8</a></p>
+            <p> Andras Margittai &copy; 2020</p>
+            <a href="#">Jump to Top </a>
         </footer>
     </div>
 </body>
@@ -48,4 +51,6 @@
 <script src="/js/diet.js"></script>
 <script src="/js/fetch-recipes.js"></script>
 <script src="/js/recipes.js"></script>
+<script src="/js/health.js"></script>
+<script src="/js/disorders.js"></script>
 </html>

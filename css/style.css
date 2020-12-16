@@ -57,7 +57,6 @@ body {
 }
 .site_header .menu .menu_top .menu_right {
     font-size: 1.5em;
-    width: 6em;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -171,4 +170,21 @@ body {
     box-shadow: 0px 0px 5px 3px rgb(255, 0, 0);
     background-color: rgb(255, 255, 255);
     color: rgb(255, 0, 0);
+}
+
+
+.site_footer {
+    height: 3em;
+    background: #000;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.473);
+}
+
+.site_footer a {
+    color: #fff;
 }
