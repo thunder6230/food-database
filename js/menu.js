@@ -18,7 +18,7 @@ const menuDescriptions = [
         description: "The best ways to keep our health and immunsystem on peak"
     },
     {
-        name: "Eating Disorders",
+        name: "Digestive Disorders",
         description: "Some thoughs about the top health related eating disorders like Diabetes, Glutenintolerance and ..."
     },
 ]
@@ -31,8 +31,7 @@ summaryArr.map((summary,index) => {
     
 })
 
-$(".nav_menu a").mouseover((e)=> {
-
+$(".nav_menu li").mouseover((e)=> {
     $(".menu_summary").hide()
     let id = e.target.getAttribute("id")
     let menuToShow = menuDescriptions[id]
@@ -43,18 +42,15 @@ $(".nav_menu a").mouseover((e)=> {
         </div>
     `)
     $(".menu_summary").fadeIn(200)
-   
 })
 
-const openAndCloseMenu = (e) => {
+const openAndCloseMenu = () => {
     menuIsOpen = !menuIsOpen
-
     if(menuIsOpen) {
         $(".menu_off").slideDown();
     } else {
         $(".menu_off").slideUp();
     }
-
 }
 
 $("#menu_btn").click(() => {
@@ -66,7 +62,6 @@ $(".nav_menu li").click((e)=> {
         return
     }
     openAndCloseMenu()
-    
 })
 $(".nav_menu a").click((e) => {
     menu_elements.map(element => {

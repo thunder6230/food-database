@@ -126,9 +126,17 @@ const recipesToDom = (generateNew) => {
         createRandomArr(6) 
     }
     createRecipeDiv(randomRecipesArr, "results")
-    $(".recipes_div").fadeIn(500)    
+    $(".recipes_div").fadeIn(500) 
+    
 }
 
+$(document).keypress(function(e) {
+    if(e.which == 13) {
+        if(menu_elements[2].classList.contains("active")){
+            searchForMeals()
+        }
+    }
+});
 const onChangeVegetarian = () => {
     isVegetarian = !isVegetarian
 }
@@ -163,7 +171,7 @@ const searchForMeals = () => {
             `)
             setTimeout( () => {
                 resultsToDom(keyword)
-            }, 8000);
+            },10000);
             }else {
                 resultsToDom(keyword)
             }

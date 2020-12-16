@@ -113,15 +113,28 @@ body {
     font-size: 1.2em;
 }
 .site_header .menu .menu_off ul a:hover{
-    text-decoration: underline;
     cursor: pointer;
 }
+.site_header .menu .menu_off ul a::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    background-color: #fff;
+    transition: all 0.3s ease;
+}
+.site_header .menu .menu_off ul a:hover::after {
+    width: 100%;
+}
+
 .site_header .menu .menu_off ul a.active{
     color: #5e5e5e;
     cursor: not-allowed;
 }
-.site_header .menu .menu_off ul a.active:hover {
-    text-decoration: none;
+
+.site_header .menu .menu_off ul a.active:hover::after {
+    width: 0;
 }
 
 

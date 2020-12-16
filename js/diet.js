@@ -149,7 +149,6 @@ const createDietCards = () => {
 
 const showDietDescription = (id) => {
     window.scrollTo(0, 0);
-    console.log("showdietdescription")
     let diet = diets[id]
     createExampleRecipeArray(diet)
     site_main.innerHTML = "<div class='diet_description' style='display: none;'></div>"
@@ -179,7 +178,6 @@ const showDietDescription = (id) => {
 }
 
 const createExampleRecipeArray = (diet) => {
-    console.log("createExampleRecipeArray")
     exampleRecipeArr = []
     randomNumbers = []
     temp = []
@@ -191,52 +189,33 @@ const createExampleRecipeArray = (diet) => {
         })
     } else {
         if (diet.name == "Gluten Free"){
-           recipesArr.map(recipe => {
-                if (recipe.glutenFree) {
-                    temp.push(recipe)
-                }
-            })
+            temp = recipesArr.filter(recipe => recipe.glutenFree)
             generateRandomNumber(temp.length)
             randomNumbers.map(number => {
                 exampleRecipeArr.push(temp[number])
             })
         } else if (diet.name == "Vegetarian"){
-            recipesArr.map(recipe => {
-                if (recipe.vegetarian) {
-                    temp.push(recipe)
-                }
-            })
+            temp = recipesArr.filter(recipe => recipe.vegetarian)
+            console.log(temp)
             generateRandomNumber(temp.length)
             randomNumbers.map(number => {
                 exampleRecipeArr.push(temp[number])
             })
         } else if (diet.name == "Vegan"){
-            
-            recipesArr.map(recipe => {
-                if (recipe.vegan) {
-                    temp.push(recipe)
-                }
-            })
+            temp = recipesArr.filter(recipe => recipe.vegan)
             generateRandomNumber(temp.length)
             randomNumbers.map(number => {
                 exampleRecipeArr.push(temp[number])
             })
         } else if (diet.name == "Low FODMAP") {
-            recipesArr.map(recipe => {
-                if (recipe.lowFodmap) {
-                    temp.push(recipe)
-                }
-            })
+            temp = recipesArr.filter(recipe => recipe.lowFodmap)
             generateRandomNumber(temp.length)
             randomNumbers.map(number => {
                 exampleRecipeArr.push(temp[number])
             })
             console.log(exampleRecipeArr)
         } else if (diet.name == "GAPS") {
-            recipesArr.map(recipe => {
-                if (recipe.gasp == "yes") {
-                    temp.push(recipe)
-                }})
+            temp = recipesArr.filter(recipe => recipe.gaps == "yes")
             generateRandomNumber(temp.length)
             randomNumbers.map(number => {
                 exampleRecipeArr.push(temp[number])
