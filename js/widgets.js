@@ -6,7 +6,6 @@ let nextDaysArr = []
 
 const dateAndTimeWidget = () => {
     
-    
     let date = new Date()
     let hour = date.getHours()
     let minutes = date.getMinutes()
@@ -21,8 +20,6 @@ const dateAndTimeWidget = () => {
     
     $(".current_time").html(`${hour} ${doublecolon} ${minutes}`)
     $(".current_date").html(`${day}, ${todayDate}. ${month}. ${year}`)
-    
-    
 
     setInterval(dateAndTimeWidget, interval);
 }
@@ -43,7 +40,6 @@ const getNextDaysArr = () => {
     for ( let i = 0; i < 3; i++) {
         if(i == 0) {
            nextDaysArr.push("Tomorrow")
-
         } else {
             if(days[today] == undefined){
                 today = today-7
@@ -68,11 +64,9 @@ const getGeoLocation = () => {
     }
     //get current location
     navigator.geolocation.getCurrentPosition(succesCallback , errorCallback)
-    
 }
 
 const getWeather = (lat, lon) => {
-    
     let key = '7d427ae79bf8f5a26954295a12ca5c14'
     // let url = `api.openweathermap.org/data/2.5/weather?q=Vienna&appid=${key}`
     let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}&units=metric`
@@ -82,10 +76,12 @@ const getWeather = (lat, lon) => {
     }).done((data) => {
         $(".widget.weather").html(`
             <img class="bg_image" src="/images/widget/badacsony.jpg" alt="weather">
+            
             <div class="widget_header">
                 <h1>${data.name}, ${data.sys.country}</h1>
                 <h1>${Math.round(data.main.temp)} °C</h1>
-                <img src="http://openweathermap.org/img/wn/${data.weather[0].icon}.png" alt="">
+                <img src="http://openweathermap.org/img/wn/${data.weather[0].icon}.png" class="weather_icon" alt="">
+                <img src="https://img.icons8.com/ultraviolet/40/000000/refresh--v1.png" class="refresh_btn" onclick="getGeoLocation()"/>
             </div>
             <div class="details">
                 <div>
@@ -103,8 +99,11 @@ const getWeather = (lat, lon) => {
             </div>
             <div class="widget_forecast"></div>
         `)
+       
     })
-    url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${key}&units=metric&cnt=24`
+
+    setTimeout(() => {
+        url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${key}&units=metric&cnt=24`
     $.get(url, {
         format: "json"
     }).done((data) => {
@@ -118,16 +117,26 @@ const getWeather = (lat, lon) => {
         document.querySelector(".widget_forecast").innerHTML += `
                     <div>
                         <p>${nextDaysArr[index].toUpperCase()}</p>
-                        <img src="http://openweathermap.org/img/wn/${forecast.weather[0].icon}.png"
+                        <img src="http://openweathermap.org/img/wn/${forecast.weather[0].icon}.png"/>
                         <p>${Math.round(forecast.main.temp_max)} / ${Math.round(forecast.main.temp_min)} °C</p>
                     </div>
                 `
-    })
-})
-    
-    
+        })
+    })}, 1000);
 }
+
+
+
 getNextDaysArr()
 getGeoLocation()
 dateAndTimeWidget()
 setInterval(tiktak, 1000)
+
+
+// Loading widgets with delay
+setTimeout(() => {
+    $(".widgets .weather").fadeIn(400)
+}, 2000);
+setTimeout(() => {
+    $(".widgets .clock").fadeIn(400)
+}, 2500);

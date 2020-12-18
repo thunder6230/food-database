@@ -16,9 +16,12 @@
     position: relative;
     border: 1px solid rgb(0, 0, 0);
     color: rgb(255, 255, 255);
+    background-color: rgba(0, 0, 0, 0.308);
 }
 .widget.weather p {
     margin: 0.3em 0;
+    font-weight: 400;
+    font-size: 0.9em;
 }
 .widget.weather .bg_image {
     position: absolute;
@@ -36,11 +39,18 @@
 .details > div {
     text-align: center;
 }
-
+.details {
+    padding-bottom: 1em;
+}
 .widget_forecast {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    padding-bottom: 1em;
+}
+.widget.weather .widget_forecast p {
+    margin: 0;
+    color: rgb(255, 255, 255);
 }
 .widget_forecast > div {
     display: flex;
@@ -48,6 +58,26 @@
     align-items: center;
 }
 
+.weather_icon {
+    width: 75px;
+}
+
+.widget.weather .refresh_btn {
+    transition: all 1.5s cubic-bezier(.04, .71, .92, .42);
+    width: 20px;
+    position: absolute;
+    right: 0.3em;
+    top: 0.3em;
+}
+.widget.weather .refresh_btn:hover {
+    transform: rotate(1080deg);
+}
+
+.widget.weather h1 {
+    font-weight: 300;
+    font-size: 2em;
+    margin: 0;
+}
 /*Clock widget*/
 
 .widget.clock {

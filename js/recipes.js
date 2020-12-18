@@ -86,7 +86,6 @@ const showRecipe = (index, backToDiet, id) => {
         
          $(".recipe_detail").fadeIn(500)
 
-        savePageToSessionStorage($(".site_main"))
 }
 
 const recipesToDom = (generateNew) => {
@@ -171,11 +170,22 @@ const searchForMeals = () => {
     let regex = (/^[A-Za-z]+$/)
     let keyword = $(".search_input").val()
     if(keyword == ""){
-        setErrorMessage("Please add a keyword!")
+        if(isGlutenFree || isLactoseFree || isVegan || isVegetarian) {
+            searchFunction(keyword)
+        } else {
+             setErrorMessage("Please add a keyword or choose category")
+        }
+       
     }else if( keyword.match(regex) == null ) {
         setErrorMessage("Please write only letters!")
     } else {
-        if(search_counter < 1) {
+        searchFunction(keyword)
+    }
+     search_counter++
+}
+
+const searchFunction = (keyword) => {
+    if(search_counter < 1) {
             $(".recipes_div .results").html(`
             <div class="search_message">
                 <h1>Please be patient, the first loading takes a bit...</h1>
@@ -188,11 +198,7 @@ const searchForMeals = () => {
             }else {
                 resultsToDom(keyword)
             }
-        search_counter++
-    }
 }
-
-
 // const getAllRecipes = () => {
 //     if (recipesArr.length < 100){
         

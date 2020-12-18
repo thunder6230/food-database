@@ -148,7 +148,6 @@ const showDietDescription = (id) => {
         </div>
 
         <div class="description_body">
-            <img src="${diet.image}" alt="${diet.name}">
             <p>${diet.body}</p>
             <p><strong>Allowed: </strong>${diet.allowed}</p>
             <p><strong>Not Allowed: </strong>${diet.not_allowed}</p>
@@ -206,7 +205,20 @@ const createExampleRecipeArray = (diet) => {
             })
             console.log(exampleRecipeArr)
         } else if (diet.name == "GAPS") {
-            temp = recipesArr.filter(recipe => recipe.gaps == "yes")
+            temp = recipesArr.filter(recipe => recipe.gaps != "no")
+            generateRandomNumber(temp.length)
+            randomNumbers.map(number => {
+                exampleRecipeArr.push(temp[number])
+            })
+        }
+        else if (diet.name == "Ketogenic") {
+            temp = recipesArr.filter(recipe => recipe.diets.includes("primal"))
+            generateRandomNumber(temp.length)
+            randomNumbers.map(number => {
+                exampleRecipeArr.push(temp[number])
+            })
+        }else if (diet.name == "Paleo") {
+            temp = recipesArr.filter(recipe => recipe.diets.includes("paleolithic"))
             generateRandomNumber(temp.length)
             randomNumbers.map(number => {
                 exampleRecipeArr.push(temp[number])
