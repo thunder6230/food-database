@@ -152,14 +152,18 @@ const showDietDescription = (id) => {
             <p>${diet.body}</p>
             <p><strong>Allowed: </strong>${diet.allowed}</p>
             <p><strong>Not Allowed: </strong>${diet.not_allowed}</p>
-        </div>
-        
-        <div class='recipes_div'>
-            <h3>Some examples</h3>
-            <div class="results">
+        </div>`
+        if(!exampleRecipeArr.length == 0){
+            description.innerHTML += `
+            <div class='recipes_div'>
+                <h3>Some examples</h3>
+                <div class="results">
             </div>
-    </div>
-    `
+            `
+        }
+        description.innerHTML += `
+        </div>
+        `
     createRecipeDiv(exampleRecipeArr, "results", true, id)
     $(".diet_description").fadeIn(500)
 }

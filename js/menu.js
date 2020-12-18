@@ -47,7 +47,7 @@ $(".nav_menu li").mouseover((e)=> {
 const openAndCloseMenu = () => {
     menuIsOpen = !menuIsOpen
     if(menuIsOpen) {
-        $(".menu_off").slideDown();
+        $(".menu_off").slideDown("linear");
     } else {
         $(".menu_off").slideUp();
     }

@@ -28,6 +28,8 @@ body {
     min-height: 100vh;
 
 }
+
+/* Header style*/
 .site_header {
     background-color: rgba(0,0,0,0.8);
     display: flex;
@@ -78,6 +80,8 @@ body {
     cursor: pointer;
 }
 
+
+/*Slide down Menu*/
 .site_header .menu .menu_off {
     display: flex;
     flex-direction: row-reverse;
@@ -142,14 +146,20 @@ body {
 }
 
 
+.site_main_parent {
+    display: flex;
+    min-height: 50vh;
+    margin-top: 5em;
+    flex-direction: row-reverse;
+}
 
 .site_main {
     width: 60%;
-    min-height: 50vh;
-    margin: 3em auto;
+    margin: auto;
 }
 .site_main .greeting {
-    margin: 20em auto 5em;
+    width: 80%;
+    margin: 15em auto 5em;
     padding: 2em;
     background-color: rgba(255, 255, 255, 0.2);
 }
@@ -183,6 +193,7 @@ body {
     width: 100%;
     bottom: 0;
     border-top: 1px solid rgba(255, 255, 255, 0.473);
+    font-size: 0.7em;
 }
 
 .site_footer a {

@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/diet.css">
     <link rel="stylesheet" href="css/recipes.css">
     <link rel="stylesheet" href="css/disorders.css">
+    <link rel="stylesheet" href="css/widgets.css">
 
 </head>
 <body>
@@ -37,7 +38,16 @@
                 </div>
             </div>
         </header>
-        <main class="site_main">
+        <main class="site_main_parent">
+            <aside class="widgets">
+                <div class="widget weather"></div>
+                <div class="widget clock">
+                    <span class="current_time"></span>
+                    <span class="current_date"></span>
+                </div>
+                <div class="widget calendar"></div>
+            </aside>
+            <div class="site_main"></div>
         </main>
         <footer class="site_footer">
             <p>The icons are from <a href="https://icons8.com/icon/W0dCtxDtta3K/no-gluten">Icons8</a></p>
@@ -46,6 +56,7 @@
         </footer>
     </div>
 </body>
+<script src="/js/widgets.js"></script>
 <script src="/js/home.js"></script>
 <script src="/js/menu.js"></script>
 <script src="/js/diet.js"></script>
