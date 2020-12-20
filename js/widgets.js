@@ -142,6 +142,7 @@ const getWeather = (lat, lon) => {
 
 
 const getMonthDays = (month) => {
+    
     let days
         if( month == "January" || month == "March" || month == "May" || month == "July" || month == "August" || month == "October" || month == "December") {
         days = 31
@@ -165,7 +166,6 @@ if(difference == 8){
     difference = difference - 7
 }
 missingDays = weekdays - difference
-
 return missingDays
 }  
 const monthToShow = (date) => {
@@ -182,19 +182,23 @@ const monthToShow = (date) => {
     }
     let month = months[date.getMonth()]
     let monthDays = getMonthDays(month)
-    console.log(monthDays)
     let year = date.getFullYear()
     let todayDate = date.getDate()
     let firstDayofMonthRaw = new Date(`${month} 1, ${year}`).getDay()
     let lastMonth = date.getMonth() - 1
-    let LastMonthDays = getMonthDays(lastMonth)
+    if (lastMonth == -1){
+        lastMonth = 11
+    }
+    console.log(lastMonth)
     
+    let lastMonthDays = getMonthDays(months[lastMonth])
+    console.log(lastMonthDays)
     daysToDisplay = []
     // let nextMonth = date.getMonth() + 1
     let counter = 0
     daysToDisplay.push(`<tr>`)
     let missingDaysLastMonth = getMissingDays(firstDayofMonthRaw)
-    let firstDayOfWeek = LastMonthDays - missingDaysLastMonth
+    let firstDayOfWeek = lastMonthDays - missingDaysLastMonth + 1
     for ( let i = 0; i < missingDaysLastMonth; i++) {
         
         daysToDisplay.push(`<td>${firstDayOfWeek}</td>`)
@@ -212,7 +216,7 @@ const monthToShow = (date) => {
             daysToDisplay.push(`<td class="actual_month">${i + 1}</td>`)
             } 
         } else {
-            daysToDisplay.push(`<td>${i + 1}</td>`)
+            daysToDisplay.push(`<td class="actual_month">${i + 1}</td>`)
         }
         counter++
     } 
@@ -241,7 +245,6 @@ const setMonthToCalendar = (index) => {
 
     
     shownData = "days"
-    console.log(shownData)
 }
 const displayMonths = () => {
 
@@ -252,7 +255,7 @@ const displayMonths = () => {
         if(counter % 3 == 0) {
             tableMonths.push(`</tr><tr>`)
         }
-        tableMonths.push(`<td onclick="setMonthToCalendar(${index})">${month.slice(0, 3)}</td>`)
+        tableMonths.push(`<td onclick="setMonthToCalendar(${index})" class="monthButton">${month.slice(0, 3)}</td>`)
         counter++
     })
     tableMonths.push(`</tr>`)
@@ -291,14 +294,14 @@ $(".widget.calendar").html(`
     <div class="calendar_header">
         <p class="calendar_date" onclick="jumpUp()">${months[monthCounter]} ${yearCounter}</p>
         <div class="buttons">
-            <img class="last_month" src="https://img.icons8.com/ios-filled/50/ffffff/chevron-up.png"/>
-            <img class="next_month" src="https://img.icons8.com/ios-filled/50/ffffff/chevron-down.png"/>
+            <img class="last_month" src="https://img.icons8.com/ios-filled/50/ffffff/chevron-down.png"/>
+            <img class="next_month" src="https://img.icons8.com/ios-filled/50/ffffff/chevron-up.png"/>
         </div>
     </div>        
     <table>
-        <thead id="table_header">
+        <thead id="table_header" class="table_header">
         </thead>
-        <tbody id="table_body">
+        <tbody id="table_body" class="table_body">
         </tbody>
     </table>
     
