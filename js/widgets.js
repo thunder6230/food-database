@@ -2,6 +2,14 @@ let visibility = false
 const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
 let dailyForecast = []
 let nextDaysArr = []
+let shownData = "days"
+let currentDate = new Date()
+let monthCounter = currentDate.getMonth()
+let yearCounter = currentDate.getFullYear()
+const months = ['January','February','March','April','May','June','July','August','September','October','November','December']
+let monthDays
+let calDays = []
+let daysToDisplay = []
 
 //Clock widget
 const dateAndTimeWidget = () => {
@@ -82,7 +90,7 @@ const getWeather = (lat, lon) => {
             <div class="widget_header">
                 <h1>${data.name}, ${data.sys.country}</h1>
                 <h1>${Math.round(data.main.temp)} °C</h1>
-                <img src="http://openweathermap.org/img/wn/${data.weather[0].icon}.png" class="weather_icon" alt="">
+                <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}.png" class="weather_icon" alt="">
                 <img src="https://img.icons8.com/ultraviolet/40/000000/refresh--v1.png" class="refresh_btn" onclick="getGeoLocation()"/>
             </div>
             <div class="details">
@@ -119,7 +127,7 @@ const getWeather = (lat, lon) => {
         document.querySelector(".widget_forecast").innerHTML += `
                     <div>
                         <p>${nextDaysArr[index].toUpperCase()}</p>
-                        <img src="http://openweathermap.org/img/wn/${forecast.weather[0].icon}.png"/>
+                        <img src="https://openweathermap.org/img/wn/${forecast.weather[0].icon}.png"/>
                         <p>${Math.round(forecast.main.temp_max)} / ${Math.round(forecast.main.temp_min)} °C</p>
                     </div>
                 `
@@ -131,12 +139,7 @@ const getWeather = (lat, lon) => {
 //Calendar Widget
 
 
-const months = ['January','February','March','April','May','June','July','August','September','October','November','December']
-let monthDays
-let yearCounter
-let monthCounter
-let calDays = []
-let daysToDisplay = []
+
 
 const getMonthDays = (month) => {
     let days
@@ -154,83 +157,128 @@ const getMonthDays = (month) => {
     }
     return days
 }
-  const getMissingDays = (firstDay) => {
-    let missingDays
-    let weekdays = 7
-    let difference = weekdays - firstDay + 1
-    if(difference == 8){
-        difference = difference - 7
-    }
-    missingDays = weekdays - difference
+const getMissingDays = (firstDay) => {
+let missingDays
+let weekdays = 7
+let difference = weekdays - firstDay + 1
+if(difference == 8){
+    difference = difference - 7
+}
+missingDays = weekdays - difference
 
-    return missingDays
-  }  
-    const monthToShow = (date) => {
-        let isActualDate
-        let controlDate = new Date()
-        if (
-            date.getDate() == controlDate.getDate() &&
-            date.getMonth() == controlDate.getMonth() &&
-            date.getFullYear() == controlDate.getFullYear()            
-        ){
-           isActualDate = true
-        } else {
-            isActualDate = false
-        }
-        let month = months[date.getMonth()]
-        let monthDays = getMonthDays(month)
-        console.log(monthDays)
-        let year = date.getFullYear()
-        let todayDate = date.getDate()
-        let firstDayofMonthRaw = new Date(`${month} 1, ${year}`).getDay()
-        let lastMonth = date.getMonth() - 1
-        let LastMonthDays = getMonthDays(lastMonth)
-        
-        daysToDisplay = []
-        // let nextMonth = date.getMonth() + 1
-        let counter = 0
-        daysToDisplay.push(`<tr>`)
-        let missingDaysLastMonth = getMissingDays(firstDayofMonthRaw)
-        let firstDayOfWeek = LastMonthDays - missingDaysLastMonth
-        for ( let i = 0; i < missingDaysLastMonth; i++) {
-            
-            daysToDisplay.push(`<td>${firstDayOfWeek}</td>`)
-            firstDayOfWeek++
-            counter ++
-        }
-        for(let i = 0; i < monthDays; i++) {
-            if(counter % 7 == 0){
-                daysToDisplay.push(`</tr><tr>`)
-            }
-            if(isActualDate){
-               if(i == todayDate - 1){
-                daysToDisplay.push(`<td class="today">${i + 1}</td>`)
-                }else {
-                daysToDisplay.push(`<td class="actual_month">${i + 1}</td>`)
-                } 
-            } else {
-                daysToDisplay.push(`<td>${i + 1}</td>`)
-            }
-            counter++
-        } 
-        let leftover =  42 - counter
-        for(let i = 0; i < leftover; i++){
-            if(counter % 7 == 0){
-                daysToDisplay.push(`</tr><tr>`)
-            }
-            daysToDisplay.push(`<td>${i + 1}</td>`)
-            counter++
-        }
-        daysToDisplay.push(`</tr>`)
-        $("#table_body").html(daysToDisplay)
+return missingDays
+}  
+const monthToShow = (date) => {
+    let isActualDate
+    let controlDate = new Date()
+    if (
+        date.getDate() == controlDate.getDate() &&
+        date.getMonth() == controlDate.getMonth() &&
+        date.getFullYear() == controlDate.getFullYear()            
+    ){
+        isActualDate = true
+    } else {
+        isActualDate = false
     }
+    let month = months[date.getMonth()]
+    let monthDays = getMonthDays(month)
+    console.log(monthDays)
+    let year = date.getFullYear()
+    let todayDate = date.getDate()
+    let firstDayofMonthRaw = new Date(`${month} 1, ${year}`).getDay()
+    let lastMonth = date.getMonth() - 1
+    let LastMonthDays = getMonthDays(lastMonth)
     
+    daysToDisplay = []
+    // let nextMonth = date.getMonth() + 1
+    let counter = 0
+    daysToDisplay.push(`<tr>`)
+    let missingDaysLastMonth = getMissingDays(firstDayofMonthRaw)
+    let firstDayOfWeek = LastMonthDays - missingDaysLastMonth
+    for ( let i = 0; i < missingDaysLastMonth; i++) {
+        
+        daysToDisplay.push(`<td>${firstDayOfWeek}</td>`)
+        firstDayOfWeek++
+        counter ++
+    }
+    for(let i = 0; i < monthDays; i++) {
+        if(counter % 7 == 0){
+            daysToDisplay.push(`</tr><tr>`)
+        }
+        if(isActualDate){
+            if(i == todayDate - 1){
+            daysToDisplay.push(`<td class="today">${i + 1}</td>`)
+            }else {
+            daysToDisplay.push(`<td class="actual_month">${i + 1}</td>`)
+            } 
+        } else {
+            daysToDisplay.push(`<td>${i + 1}</td>`)
+        }
+        counter++
+    } 
+    let leftover =  42 - counter
+    for(let i = 0; i < leftover; i++){
+        if(counter % 7 == 0){
+            daysToDisplay.push(`</tr><tr>`)
+        }
+        daysToDisplay.push(`<td>${i + 1}</td>`)
+        counter++
+    }
+    daysToDisplay.push(`</tr>`)
+    $("#table_body").html(daysToDisplay)
+}
 
+
+const setMonthToCalendar = (index) => {
+    
+    let calendarDate = document.querySelector('.calendar_date')
+    $("#table_body").hide()
+    monthCounter = index
+    monthToShow(new Date(`${months[monthCounter]} 1, ${yearCounter}`))
+    calendarDate.innerHTML = `${months[monthCounter]} ${yearCounter}`
+    $("#table_body").fadeIn(300)
+    $("#table_header").fadeIn(300)
+
+    
+    shownData = "days"
+    console.log(shownData)
+}
+const displayMonths = () => {
+
+    let tableMonths = []
+    let counter = 0
+    tableMonths.push(`<tr>`)
+    months.map((month,index) => {
+        if(counter % 3 == 0) {
+            tableMonths.push(`</tr><tr>`)
+        }
+        tableMonths.push(`<td onclick="setMonthToCalendar(${index})">${month.slice(0, 3)}</td>`)
+        counter++
+    })
+    tableMonths.push(`</tr>`)
+    console.log(tableMonths)
+    $("#table_header").hide()
+    $("#table_body").hide()
+    document.querySelector("#table_body").innerHTML = tableMonths.join('')
+    $("#table_body").fadeIn(300)
+    
+}
+    
+const jumpUp = () => {
+    
+    let calendarDate = document.querySelector('.calendar_date')
+    if (shownData == "days") {
+        shownData = "months"
+        calendarDate.innerHTML = `${yearCounter}`
+        displayMonths()
+    } else if ( shownData == "months"){
+        // shownData = "years"
+    }
+    console.log(shownData)
+
+}
 //display current month
-let currentDate = new Date()
-monthCounter = currentDate.getMonth()
 
-yearCounter = currentDate.getFullYear()
 
 days.map(day => {
     calDays.push(`<th>${day.slice(0, 2)}</th>`)
@@ -240,15 +288,15 @@ calDays.push(calDays.shift())
 $(".widget.calendar").hide()
 
 $(".widget.calendar").html(`
-    <div class=""calendar_header>
-        <p class="date">${months[monthCounter]} ${yearCounter}</p>
+    <div class="calendar_header">
+        <p class="calendar_date" onclick="jumpUp()">${months[monthCounter]} ${yearCounter}</p>
         <div class="buttons">
             <img class="last_month" src="https://img.icons8.com/ios-filled/50/ffffff/chevron-up.png"/>
             <img class="next_month" src="https://img.icons8.com/ios-filled/50/ffffff/chevron-down.png"/>
         </div>
     </div>        
     <table>
-        <thead>
+        <thead id="table_header">
         </thead>
         <tbody id="table_body">
         </tbody>
@@ -257,25 +305,54 @@ $(".widget.calendar").html(`
 `)
 document.querySelector("thead").innerHTML += calDays.join('')
     
-    //function to change the month
-    $(".last_month").click(() => {
+//function to change the month
+$(".last_month").click(() => {
+
+    
+    let calendarDate = document.querySelector('.calendar_date')
+    $("#table_body").hide()
+    $("#table_header").hide()
+
+    if(shownData == "days") {
         monthCounter --
         if(monthCounter == -1) {
             yearCounter--
             monthCounter = 11
         }
-        $(".date").html(`${months[monthCounter]} ${yearCounter}`)
-        monthToShow(new Date(`${months[monthCounter]} 1, ${yearCounter}`), false)
-    })
-    $(".next_month").click(() => {
+        calendarDate.innerHTML = `${months[monthCounter]} ${yearCounter}`
+        monthToShow(new Date(`${months[monthCounter]} 1, ${yearCounter}`))
+         $("#table_header").fadeIn(300)
+    } else if (shownData == "months") {
+        yearCounter--
+        calendarDate.innerHTML = `${yearCounter}` 
+    }
+    
+    $("#table_body").fadeIn(300)
+   
+})
+$(".next_month").click(() => {
+    
+    let calendarDate = document.querySelector('.calendar_date')
+    $("#table_body").hide()
+    $("#table_header").hide()
+
+    if(shownData == "days") {
         monthCounter ++
         if(monthCounter == 12) {
             yearCounter++
             monthCounter = 0
         }
-        $(".date").html(`${months[monthCounter]} ${yearCounter}`)
-        monthToShow(new Date(`${months[monthCounter]} 1, ${yearCounter}`), false)
-    })
+        calendarDate.innerHTML = `${months[monthCounter]} ${yearCounter}`
+        monthToShow(new Date(`${months[monthCounter]} 1, ${yearCounter}`))
+        $("#table_header").fadeIn(300)
+    }else if (shownData == "months") {
+        yearCounter++
+        calendarDate.innerHTML = `${yearCounter}` 
+    }
+    
+    $("#table_body").fadeIn(300)
+    
+})
 
 //Generating
 getNextDaysArr()
