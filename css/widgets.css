@@ -4,6 +4,7 @@
     flex-direction: column;
     align-items: center;
     position: fixed;
+    height: 100%;
 }
 
 .widget {
@@ -47,6 +48,7 @@
     justify-content: space-around;
     align-items: center;
     padding-bottom: 1em;
+    position: relative;
 }
 .widget.weather .widget_forecast p {
     margin: 0;
@@ -85,6 +87,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 
 .widget.clock {
@@ -94,4 +97,77 @@
 }
 .widget.clock .current_time {
     font-size: 2em;
+}
+/*Widget calendar*/
+.widget.calendar {
+    position: relative;
+    display: flex;
+    width: 60%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.calendar_header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.calendar_header .buttons {
+    display: flex;
+    justify-content: space-around;
+    width: 30%;
+}
+
+.calendar_header img {
+    height: 1em;
+}
+
+
+.calendar_date, .widget.calendar img {
+    cursor: pointer;
+}
+.calendar_date {
+    font-size: 1.2em;
+    font-weight: 600;
+}
+th {
+    padding: 0.5em;
+}
+td {
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.164);
+    transition: all 0.2s ease;
+    padding: 0.5em;
+    width: 2em;
+    color: rgba(255, 255, 255, 0.397);
+}
+.table_body .actual_month {
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+}
+
+.table_body .today {
+    background-color: #fff;
+    color: #000;
+    font-weight: 600;
+    font-size: 1.1em;
+    padding: 0.4em;
+}
+td:hover {
+     border: 1px solid rgb(255, 255, 255);
+}
+.monthButton {
+    width: 33%;
+    padding: 1em;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    transition: all 0.2s ease;
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+    font-size: 1.2em;
+}
+.monthButton:hover {
+    border: 1px solid rgb(255, 255, 255);
 }
