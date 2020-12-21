@@ -146,3 +146,17 @@
 .search_message h1 {
     margin-bottom: 1.5em;
 }
+
+
+@media only screen and (max-width: 1024px) {
+    .recipes_div {
+        margin: auto;
+    }
+}
+
+@media only screen and (min-width: 1280px){
+    .recipes_div {
+        width: 100%;
+        margin: auto;
+    }
+}

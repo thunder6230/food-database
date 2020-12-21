@@ -92,9 +92,6 @@ body {
 .site_header .menu .menu_off .menu_summary {
     margin-left: 3em;
 }
-.site_header .menu .menu_off nav {
-    
-}
 
 .site_header .menu .menu_off ul {
     list-style: none;
@@ -141,6 +138,8 @@ body {
 }
 
 
+
+/*Main page style*/
 .site_header h1 {
     margin: 0;
 }
@@ -157,6 +156,7 @@ body {
 .site_main {
     width: 60%;
     margin: auto;
+    margin-right: 30%;
 }
 .site_main .greeting {
     width: 80%;
@@ -199,4 +199,36 @@ body {
 
 .site_footer a {
     color: #fff;
+}
+
+
+@media only screen and (max-width: 1440px){
+    .site_main_parent {
+        margin-top: 4em;
+    }
+    .site_main {
+        width: 60%;
+        margin-right: 30%;
+    }
+    .site_header .menu {
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .site_main {
+        width: 100%;
+        margin: auto;
+    }
+    .site_header .menu {
+        width: 90%;
+    }
+}
+
+@media only screen and (min-width: 1280px) {
+    .site_main {
+        width: 80%;
+        margin: auto;
+        margin-right: 25%;
+    }
 }
