@@ -10,8 +10,65 @@
 .widget {
     width: 80%;
     min-height: 5em;
+    margin-bottom: 2em;
+}
+.widget .minimize_button {
+    width: 20px;
+    position: absolute;
+    right: -1em;
+    top: -1em;
+    font-size: 1em !important;
+    transition: all 0.2s ease;
+    opacity: 0;
+    cursor: pointer;
+}
+.widget .minimize_button:hover {
+    width: 23px;
+    display: block;
 }
 
+.widget:hover .minimize_button{
+    opacity: 1;
+}
+.widget.minimized {
+    display: none !important;
+}
+.taskbar {
+    position: absolute;
+    top: -3em;
+    left: 0;
+    height: 3em;
+    width: auto;
+    display: flex;
+}
+.taskbar .taskbar_app {
+    border: 1px solid #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 7em;
+    position: relative;
+    font-size: 1.5em;
+    font-weight: 600;
+    
+}
+.taskbar .taskbar_app:hover .open_button{
+    opacity: 1;
+}
+
+.taskbar_app .open_button {
+    width: 20px;
+    position: absolute;
+    top: -0.5em;
+    right: -0.5em;
+    transition: all 0.3s ease;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.taskbar_app .open_button:hover {
+    width: 23px;
+}
 /*Weather widget*/
 .widget.weather {
     position: relative;
@@ -80,6 +137,7 @@
     font-size: 2em;
     margin: 0;
 }
+
 /*Clock widget*/
 
 .widget.clock {
@@ -93,16 +151,25 @@
 .widget.clock {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-weight: 300;
+}
+.widget.clock .current_time{
+    font-size: 4em;
+}
+
+.widget.clock .current_date {
     font-size: 2em;
 }
-.widget.clock .current_time {
-    font-size: 2em;
-}
+
+
+
+
+
+
 /*Widget calendar*/
 .widget.calendar {
     position: relative;
     display: flex;
-    width: 60%;
+    width: 80%;
     align-items: center;
     justify-content: center;
     flex-direction: column;

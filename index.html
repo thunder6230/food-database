@@ -40,16 +40,18 @@
         </header>
         <main class="site_main_parent">
             <aside class="widgets">
-                <div class="widget weather"  style="display: none;"></div>
-                <div class="widget clock"  style="display: none;">
+                <div class="widget weather"  style="display: none;" id="0" data-name="weather"></div>
+                <div class="widget clock" data-name="clock" style="display: none;" id="1">
+                    <img class="minimize_button" onclick="minimize(this)" src="https://img.icons8.com/flat_round/64/000000/minus.png"/>
                     <span class="current_time"></span>
                     <span class="current_date"></span>
                 </div>
-                <div class="widget calendar"></div>
+                <div class="widget calendar" data-name="calendar" id="2"></div>
             </aside>
             <div class="site_main"></div>
         </main>
         <footer class="site_footer">
+            <div class="taskbar"></div>
             <p>The icons are from <a href="https://icons8.com/icon/W0dCtxDtta3K/no-gluten">Icons8</a></p>
             <p> Andras Margittai &copy; 2020</p>
             <!-- <a href="https://paypal.me/thunder6230">Donate on <i class="fab fa-paypal"></i></a> -->

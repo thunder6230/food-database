@@ -10,6 +10,39 @@ const months = ['January','February','March','April','May','June','July','August
 let monthDays
 let calDays = []
 let daysToDisplay = []
+let minimizedContainer = []
+let widgetsArr = []
+
+
+
+const minimize = (minimizeButton) => {
+    let id = minimizeButton.parentElement.getAttribute("id")
+    let appName = minimizeButton.parentElement.getAttribute("data-name")
+    minimizeButton.parentElement.classList.add("minimized")
+    minimizedContainer.push({
+        
+        id: id,
+        body: `
+        <div class="taskbar_app" id="${id}">
+            <p>${appName}</p>
+            <img src="https://img.icons8.com/flat_round/64/000000/plus.png" onclick="openApp(this)" class="open_button" />
+        </div>`
+    })
+    document.querySelector(".taskbar").innerHTML = ""
+    minimizedContainer.map(app => {
+        document.querySelector(".taskbar").innerHTML += app.body
+    })
+}
+
+const openApp = (openButton) => {
+    let id = openButton.parentElement.getAttribute("id")
+    minimizedContainer =  minimizedContainer.filter(app => app.id != id)          
+    widgetsArr[id].classList.remove("minimized")
+    document.querySelector(".taskbar").innerHTML = ""
+    minimizedContainer.map(app => {
+        document.querySelector(".taskbar").innerHTML += app.body
+    })
+}
 
 //Clock widget
 const dateAndTimeWidget = () => {
@@ -86,7 +119,7 @@ const getWeather = (lat, lon) => {
     }).done((data) => {
         $(".widget.weather").html(`
             <img class="bg_image" src="/images/widget/badacsony.jpg" alt="weather">
-            
+            <img class="minimize_button" onclick="minimize(this)" src="https://img.icons8.com/flat_round/64/000000/minus.png"/>
             <div class="widget_header">
                 <h1>${data.name}, ${data.sys.country}</h1>
                 <h1>${Math.round(data.main.temp)} °C</h1>
@@ -189,10 +222,8 @@ const monthToShow = (date) => {
     if (lastMonth == -1){
         lastMonth = 11
     }
-    console.log(lastMonth)
     
     let lastMonthDays = getMonthDays(months[lastMonth])
-    console.log(lastMonthDays)
     daysToDisplay = []
     // let nextMonth = date.getMonth() + 1
     let counter = 0
@@ -259,7 +290,6 @@ const displayMonths = () => {
         counter++
     })
     tableMonths.push(`</tr>`)
-    console.log(tableMonths)
     $("#table_header").hide()
     $("#table_body").hide()
     document.querySelector("#table_body").innerHTML = tableMonths.join('')
@@ -277,7 +307,6 @@ const jumpUp = () => {
     } else if ( shownData == "months"){
         // shownData = "years"
     }
-    console.log(shownData)
 
 }
 //display current month
@@ -291,6 +320,7 @@ calDays.push(calDays.shift())
 $(".widget.calendar").hide()
 
 $(".widget.calendar").html(`
+    <img class="minimize_button" onclick="minimize(this)" src="https://img.icons8.com/flat_round/64/000000/minus.png"/>
     <div class="calendar_header">
         <p class="calendar_date" onclick="jumpUp()">${months[monthCounter]} ${yearCounter}</p>
         <div class="buttons">
@@ -375,3 +405,7 @@ setTimeout(() => {
 setTimeout(() => {
     $(".widgets .calendar").fadeIn(400)
 }, 3000);
+
+Array.from(document.querySelectorAll(".widget")).map(widget => {
+    widgetsArr.push(widget)
+})

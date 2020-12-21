@@ -151,6 +151,7 @@ body {
     min-height: 50vh;
     margin-top: 5em;
     flex-direction: row-reverse;
+    position: relative;
 }
 
 .site_main {
