@@ -91,7 +91,7 @@ const disordersToDom = () => {
         `
     })
     document.querySelector(".disorders").innerHTML += 
-    `<a href="https://www.everydayhealth.com/digestive-health/common-digestive-conditions-from-top-bottom/">Read more</a>`
+    `<a href="https://www.everydayhealth.com/digestive-health/common-digestive-conditions-from-top-bottom/" target="_blank">Read more</a>`
     
     $(".site_main").fadeIn(500)
 }

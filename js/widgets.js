@@ -83,6 +83,7 @@ const getNextDaysArr = () => {
     for ( let i = 0; i < 3; i++) {
         if(i == 0) {
            nextDaysArr.push("Tomorrow")
+           today++
         } else {
             if(days[today] == undefined){
                 today = today-7
@@ -91,6 +92,7 @@ const getNextDaysArr = () => {
         }
         today++
     }
+    console.log(nextDaysArr)
 }
 
 

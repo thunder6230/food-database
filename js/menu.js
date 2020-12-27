@@ -18,7 +18,7 @@ const menuDescriptions = [
         description: "The best ways to keep our health and immunsystem on peak"
     },
     {
-        name: "Digestive Disorders",
+        name: "Disorders",
         description: "Some thoughs about the top health related eating disorders like Diabetes, Glutenintolerance and ..."
     },
 ]
